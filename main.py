@@ -2,6 +2,7 @@ import requests
 import pprint
 import json
 from urllib.parse import urlparse
+from dotenv import load_dotenv
 
 TOKEN = "0a5ea0374834abc798a2ac77da94aeab477a1af9"
 

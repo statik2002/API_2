@@ -1,7 +1,5 @@
 import os
-
 import requests
-import pprint
 import json
 from urllib.parse import urlparse
 from dotenv import load_dotenv
@@ -10,26 +8,26 @@ load_dotenv()
 TOKEN = os.environ['TOKEN']
 
 
-def shorten_link(token, long_url):
+def shorten_link(long_url):
     headers = {
-        'Authorization': f'Bearer {token}',
+        'Authorization': f'Bearer {TOKEN}',
     }
 
     request_url = "https://api-ssl.bitly.com/v4/shorten"
 
-    create_bitlink = {
+    long_url_json = {
         "long_url": long_url,
     }
 
-    response = requests.post(request_url, headers=headers, json=create_bitlink)
+    response = requests.post(request_url, headers=headers, json=long_url_json)
     response.raise_for_status()
 
     return json.loads(response.text)['id']
 
 
-def count_clicks(token, link):
+def count_clicks(link):
     headers = {
-        'Authorization': f'Bearer {token}',
+        'Authorization': f'Bearer {TOKEN}',
     }
 
     link_parsed = urlparse(link)
@@ -56,13 +54,13 @@ if __name__ == '__main__':
 
     if is_bitlink(url):
         try:
-            total_clicks = count_clicks(TOKEN, url)
-            print(total_clicks)
+            total_clicks = count_clicks(url)
+            print(f"Всего кликов: {total_clicks}")
         except requests.exceptions.HTTPError as error:
             exit(f"Не могу получить кол-во кликов по причине: {error}")
     else:
         try:
-            shorten_link = shorten_link(TOKEN, url)
-            print(shorten_link)
+            shorten_link = shorten_link(url)
+            print(f"Битлинк: {shorten_link}")
         except requests.exceptions.HTTPError as error:
             exit(f"Не могу получить информацию по ссылке по причине: {error}")

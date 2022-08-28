@@ -53,15 +53,12 @@ def is_bitlink(token, input_url):
     response = requests.get(request_url, headers=headers)
     response.raise_for_status()
 
-    if response.ok:
-        return True
-
-    return False
+    return True
 
 
 def main():
     load_dotenv()
-    token = os.environ['TOKEN']
+    token = os.environ['BITLY_TOKEN']
 
     url = input('Введите ссылку: ')
 

@@ -51,8 +51,8 @@ def is_bitlink(token, input_url):
     request_url = f'https://api-ssl.bitly.com/v4/bitlinks/{request_link}'
 
     response = requests.get(request_url, headers=headers)
-    response.raise_for_status()
-
+    if not response.ok:
+        return False
     return True
 
 

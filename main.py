@@ -1,6 +1,6 @@
 import os
 import requests
-import json
+import argparse
 from urllib.parse import urlparse
 from dotenv import load_dotenv
 
@@ -58,7 +58,16 @@ def main():
     load_dotenv()
     token = os.environ['BITLY_TOKEN']
 
-    url = input('Введите ссылку: ')
+    parser = argparse.ArgumentParser(
+                                    description='Скрипт сокращения bitly ссылок',
+                                    )
+    parser.add_argument('-u', '--url', help='ссылка')
+    args = vars(parser.parse_args())
+
+    if args['url']:
+        url = args['url']
+    else:
+        url = input('Введите ссылку: ')
 
     try:
         if is_bitlink(token, url):
@@ -75,4 +84,3 @@ def main():
 if __name__ == '__main__':
 
     main()
-

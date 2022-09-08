@@ -31,7 +31,8 @@ def count_clicks(token, link):
 
     request_link = f"{parsed_link.netloc}/{parsed_link.path}"
 
-    request_url = f"https://api-ssl.bitly.com/v4/bitlinks/{request_link}/clicks/summary"
+    request_url = f"https://api-ssl.bitly.com/v4/bitlinks/" \
+                  f"{request_link}/clicks/summary"
 
     response = requests.get(request_url, headers=headers)
     response.raise_for_status()
@@ -59,8 +60,8 @@ def main():
     token = os.environ['BITLY_TOKEN']
 
     parser = argparse.ArgumentParser(
-                                    description='Скрипт сокращения bitly ссылок',
-                                    )
+        description='Скрипт сокращения bitly ссылок',
+    )
     parser.add_argument('-u', '--url', help='ссылка')
     args = parser.parse_args()
 

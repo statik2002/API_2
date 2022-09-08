@@ -62,10 +62,10 @@ def main():
                                     description='Скрипт сокращения bitly ссылок',
                                     )
     parser.add_argument('-u', '--url', help='ссылка')
-    args = vars(parser.parse_args())
+    args = parser.parse_args()
 
-    if args['url']:
-        url = args['url']
+    if args.url:
+        url = args.url
     else:
         url = input('Введите ссылку: ')
 
